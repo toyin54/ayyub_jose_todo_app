@@ -1,24 +1,20 @@
-import logo from './logo.svg';
+import React , {useState} from 'react';
 import './App.css';
+import UserBar from './components/UserBar';
+import ListPage from './pages/ListPage';
 
 function App() {
+  
+  const [user , setUser] = useState('')
+  // const [posts , setPosts] = useState([intialPosts])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <UserBar user = {user} setUser={ setUser}/>
+      {user && <ListPage/>}
+   
     </div>
+
   );
 }
 
