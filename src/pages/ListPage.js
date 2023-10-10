@@ -12,7 +12,8 @@ export default function TodoPage(){
             id: Math.random(),
             description,
             todo: inputTask,
-            complete: false,
+            complete:  <input type="checkbox" value ="false" onClick={() => newTask.dateCompleted = Date(Date.now()).toString()} 
+            />,
             dateCompleted: null,
             dateCreated :Date(Date.now()).toString()
         };
@@ -20,6 +21,13 @@ export default function TodoPage(){
         setTodo([...todo, newTask]);
         setInputTask('');
         setDescription('');
+    };
+
+    //
+
+    const handleTrueTodo = (id) => {
+        const newtodo = todo.filter((todo) => todo.id !== id);
+        setTodo(newtodo);
     };
 
     //hnadles the delete button
@@ -64,9 +72,9 @@ export default function TodoPage(){
                         <li className="task" key={todo.id}>
                             <strong>{todo.todo}</strong>
                             <p>{todo.description}</p>
-                            <p>Complete: {todo.complete ? 'Yes' : 'No'}</p>
-                            {/* <p>Created: {new Date(todo.dateCreated).toLocaleString()}</p> */}
+                            <p>Complete: {todo.complete }</p>
                             <p>Created: { todo.dateCreated}</p>
+                            <p>Finished: { todo.dateCompleted}</p>
                             <button onClick={() => handleDeleteTodo(todo.id)}>
                                Delete
                            </button>
