@@ -1,4 +1,4 @@
-Ayyub Joe
+Ayyub Jose
 Homework 3
 # Getting Started with Create React App
 
