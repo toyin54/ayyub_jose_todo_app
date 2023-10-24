@@ -36,7 +36,7 @@ return (
                 name="register-password-repeat" 
                 id="register-password-repeat" 
                 value={formData.passwordRepeat} 
-                                                                                               onChange={e => setFormData({...formData, passwordRepeat : e.target.value})} />
+                 onChange={e => setFormData({...formData, passwordRepeat : e.target.value})} />
         <input 
                 type="submit" 
                 value="Register" 

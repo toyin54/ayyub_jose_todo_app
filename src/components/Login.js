@@ -10,7 +10,7 @@ export default function Login({ dispatchUser }) {
    return (
         <form onSubmit={e => { 
             e.preventDefault();
-             setUser(username); 
+            dispatchUser({ type: "LOGIN", username });
              }}
              >
             <label htmlFor="login-username">Username:</label>
