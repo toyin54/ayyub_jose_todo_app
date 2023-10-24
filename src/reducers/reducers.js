@@ -39,8 +39,8 @@ function todoReducer(state , action){
         case "TOGGLE_TODO":
             return [...state , state.todo.map((todo) => 
                 todo.id === action.dateCompleted)]
-    default:
-        return state;
+        default:
+            return state;
     }
 }
 
