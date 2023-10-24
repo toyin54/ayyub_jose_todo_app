@@ -10,27 +10,34 @@ function userReducer(state , action){
     }
 }
 
-function postReducer(state , action){
+function todoReducer(state , action){
     switch (action.type){
-     case "CREATE_POST":
-            const newTask = {
-                id: action.id,
-                description : action.description,
-                todo: action.todo,
-                complete: action.complete,
-                dateCompleted : action.dateCompleted,
-                dateCreated : action.dateCreated
+        case "CREATE_POST":
+                const newTask = {
+                    id: action.id,
+                    description : action.description,
+                    todo: action.todo,
+                    complete: action.complete,
+                    dateCompleted : action.dateCompleted,
+                    dateCreated : action.dateCreated
 
-            };
-            return[...state, newTask]
+                };
+                return[...state, newTask]
+        case "DELETE_TODO":
+                return [...state, state.todo.filter((todo) => todo.id !== action.id)]
+        case "TOGGLE_TODO":
+            return [...state , state.todo.map((todo) => 
+                todo.id == action.dateCompleted)]
     default:
         return state;
     }
 }
 
+
+
 export default function appReducer(state, action) {
   return {
     user: userReducer(state.user, action),
-    posts: postReducer(state.posts, action),
+    posts: todoReducer(state.posts, action),
   };
 }

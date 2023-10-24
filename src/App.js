@@ -18,7 +18,7 @@ function App() {
   return (
     <div>
       <StateContext.Provider  value={{state , dispatch}}>
-      <UserBar user = {user} setUser={ setUser}/>
+      <UserBar />
       {user && <ListPage/>}
       </StateContext.Provider>
     </div>
