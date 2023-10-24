@@ -1,3 +1,9 @@
+/*
+Reducer functions for 
+LOGIN
+REGISTER
+LOGOUT
+*/
 function userReducer(state , action){
     switch(action.type){
         case "LOGIN":
@@ -9,10 +15,15 @@ function userReducer(state , action){
             return state
     }
 }
-
+/*
+Reducer functions for 
+CREATE_TODO
+DELETE_TODO
+TOGGLE_TODO
+*/
 function todoReducer(state , action){
     switch (action.type){
-        case "CREATE_POST":
+        case "CREATE_TODO":
                 const newTask = {
                     id: action.id,
                     description : action.description,
@@ -27,7 +38,7 @@ function todoReducer(state , action){
                 return [...state, state.todo.filter((todo) => todo.id !== action.id)]
         case "TOGGLE_TODO":
             return [...state , state.todo.map((todo) => 
-                todo.id == action.dateCompleted)]
+                todo.id === action.dateCompleted)]
     default:
         return state;
     }

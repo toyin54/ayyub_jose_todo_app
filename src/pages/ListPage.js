@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default function TodoPage(){
+export default function TodoPage(dispatchUser){
     const [inputTask, setInputTask] = useState('');
     const [todo, setTodo] = useState([]);
     const [description, setDescription] = useState('');
@@ -56,14 +56,21 @@ export default function TodoPage(){
             <div className="task">
                 <header>Author : {}</header>
                 <label>Enter task: </label>
-                <input type="text" value={inputTask}
-                   onChange={handleInputChange} placeholder="Enter a task"
-                required/>
+                <input 
+                    type="text" 
+                    value={inputTask}
+                    onChange={handleInputChange}
+                        placeholder="Enter a task"
+                    required/>
                 
                 <textarea placeholder="Enter Desciption of Task"
                 value={description}
                 onChange={handleInputDescChange}/>
-                <button onClick={handleAddTodo}
+                <button onClick={e=> {
+                    e.preventDefault();
+                    dispatchUser({type: "CREATE_TODO"})
+                    
+                }}
                 disabled = {inputTask.length === 0}>ADD</button>
             </div>
            <div class="list">
@@ -75,7 +82,10 @@ export default function TodoPage(){
                             <p>Complete: {todo.complete }</p>
                             <p>Created: { todo.dateCreated}</p>
                             <p>Finished: { todo.dateCompleted}</p>
-                            <button onClick={() => handleDeleteTodo(todo.id)}>
+                            <button onClick={() => {
+                                dispatchUser({type: "DELETE_TODO" ,action: todo.id})
+                            }}
+                            >
                                Delete
                            </button>
                         </li>
