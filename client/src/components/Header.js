@@ -2,11 +2,9 @@ import React from "react";
 import { useContext } from "react";
 import { ThemeContext } from "./contexts";
 
-export default function Header(){
-    return (
-        <div>
-            <h1>Welcome to Your Todo List App</h1>
-        </div>
-
-    )
+const Header = ({text}) => {
+    const {primaryColor} = useContext(ThemeContext);
+    return <h1 style={{color : primaryColor}}>{text}</h1>
 }
+
+export default Header;

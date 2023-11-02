@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { StateContext } from "../components/contexts";
 
-export default function TodoPage(dispatchUser){
+export default function TodoPage(){
     const [inputTask, setInputTask] = useState('');
     const [todo, setTodo] = useState([]);
     const [description, setDescription] = useState('');
+
+    const{state , dispatch: dispatchUser}= useContext(StateContext)
+   
 
     //function handleTd, this combines all the props
     //instead of having a different usestate fucnton for each prop

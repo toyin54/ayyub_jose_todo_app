@@ -31,7 +31,6 @@ function todoReducer(state , action){
                     complete: action.complete,
                     dateCompleted : action.dateCompleted,
                     dateCreated : action.dateCreated
-
                 };
                 return[...state, newTask]
         case "DELETE_TODO":
