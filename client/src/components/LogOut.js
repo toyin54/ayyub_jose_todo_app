@@ -1,10 +1,25 @@
 import React from "react";
+import { useContext } from "react";
+import { StateContext } from "./contexts";
 
-export default function LogOut({user , setUser}){
+export default function Logout() {
+    const { state, dispatch: dispatchUser } = useContext(StateContext);
+    const { user } = state;
+  
     return (
-       <form onClick={e=> {e.preventDefault() ; setUser('')}}>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          // setUser("");
+          dispatchUser({ type: "LOGOUT" });
+        }}
+      >
         Logged in as: <b>{user}</b>
-        <input type = "submit" value = "LogOut"/>
-       </form>
-    )
-}
+        <input type="submit" value="Logout" />
+      </form>
+    );
+  }
+  
+  
+  
+  
