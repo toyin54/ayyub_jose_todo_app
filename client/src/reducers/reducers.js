@@ -8,7 +8,7 @@ function userReducer(state , action){
     switch(action.type){
         case "LOGIN":
         case "REGISTER":
-            return action.userName;
+            return action.username;
         case "LOGOUT":
             return "";
         default:
@@ -25,7 +25,7 @@ function todoReducer(state , action){
     switch (action.type){
         case "CREATE_TODO":
                 const newTask = {
-                    id: action.id,
+                    id: Math.random(),
                     description : action.description,
                     todo: action.todo,
                     complete: action.complete,
@@ -48,6 +48,6 @@ function todoReducer(state , action){
 export default function appReducer(state, action) {
   return {
     user: userReducer(state.user, action),
-    posts: todoReducer(state.posts, action),
+    todo: todoReducer(state.todo, action),
   };
 }

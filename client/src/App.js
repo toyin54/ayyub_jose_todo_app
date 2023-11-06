@@ -21,15 +21,22 @@ function App() {
     primaryColor : "orange",
     secondaryColor: "purple",
   })
-  // const [posts , setPosts] = useState([intialPosts])
-
+ 
+  useEffect( ()=> {
+    if (user) {
+      document.t = `${user}'s Tdoo`;
+    }
+    else{
+      document.title = "Todos"
+    }
+  }, [user])
   return (
     <div>
       <StateContext.Provider  value={{state , dispatch}}>
         <ThemeContext.Provider value={theme}>
           <Header text= "Welcome to Todo App"/>
           <UserBar />
-          {user && <ListPage/>}
+          
       </ThemeContext.Provider>
     </StateContext.Provider>
     </div>

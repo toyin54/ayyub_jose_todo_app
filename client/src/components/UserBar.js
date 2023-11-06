@@ -9,9 +9,9 @@ export default function UserBar(){
     const { user } = state;
   
     
-    
+
     if (user){
-        return <LogOut />
+        return <LogOut user={user} dispatchUser={dispatchUser} />
     }
     else{
         return (
