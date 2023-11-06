@@ -3,11 +3,11 @@ import { useResource } from 'react-request-hook';
 
 export default function Register({ dispatchUser }) {
 
-      const [user , register] =useResource((username, password)=> ({
-            url: "/users",
-            method: "post",
-            data: {email: username , password},
-      }))
+      // const [user , register] =useResource((username, password)=> ({
+      //       url: "/users",
+      //       method: "post",
+      //       data: {email: username , password},
+      // }))
 
 
 //     const [ formData, setFormData ] = useState({

@@ -9,24 +9,24 @@ import ThemeItem from "./ThemeItem";
 //   { primaryColor: "orchid", secondaryColor: "mediumseagreen" },
 // ];
 export default function ChangeTheme({ theme, setTheme }) {
-  // const [themes, setThemes] = useState([]);
-  // useEffect(() => {
-  //   fetch("/api/themes")
-  //     .then((result) => result.json())
-  //     .then((themes) => setThemes(themes));
-  // }, []);
+  const [themes, setThemes] = useState([]);
+  useEffect(() => {
+    fetch("/api/themes")
+      .then((result) => result.json())
+      .then((themes) => setThemes(themes));
+  }, []);
 
 
-  const [themes, getThemes] = useResource(() => ({
-    url: "/themes",
-    method: "get",
-  }));
+  // const [themes, getThemes] = useResource(() => ({
+  //   url: "/themes",
+  //   method: "get",
+  // }));
 
 
   const { data, isLoading } = themes;
 
 
-  useEffect(getThemes, []);
+  // useEffect(getThemes, []);
 
 
   function isActive(t) {

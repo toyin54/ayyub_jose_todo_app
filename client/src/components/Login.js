@@ -1,11 +1,18 @@
 import React, { useState } from 'react'
 
 export default function Login({ dispatchUser }) {
-   const [ username, setUsername ] = useState('')
-
-   function handleUsername (e) { 
-        setUsername(e.target.value) 
-    }
+    const [ username, setUsername ] = useState('')
+    const [ password, setPassword ] = useState('')
+ 
+ 
+    function handleUsername (e) { 
+         setUsername(e.target.value) 
+     }
+ 
+     function handlePassword (e) { 
+         setPassword(e.target.value) 
+     }
+ 
 
    return (
         <form onSubmit={e => { 
@@ -24,9 +31,11 @@ export default function Login({ dispatchUser }) {
             <label 
                 htmlFor="login-password"> Password:</label>
             <input
-                 type="password" 
-                 name="login-password" 
-                 id="login-password" />
+                type="password" 
+                name="login-password" 
+                id="login-password"
+                value={password}
+                onChange={handlePassword} />
             <input
                  type="submit" 
                  value="Login" 
