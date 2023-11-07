@@ -70,11 +70,7 @@ export default function TodoPage(){
                 <textarea placeholder="Enter Desciption of Task"
                 value={description}
                 onChange={handleInputDescChange}/>
-                <button onClick={e=> {
-                    e.preventDefault();
-                    dispatchUser({type: "CREATE_TODO"})
-                    
-                }}
+                <button onClick={handleAddTodo}
                 disabled = {inputTask.length === 0}>ADD</button>
             </div>
            <div class="list">
@@ -86,9 +82,7 @@ export default function TodoPage(){
                             <p>Complete: {todo.complete }</p>
                             <p>Created: { todo.dateCreated}</p>
                             <p>Finished: { todo.dateCompleted}</p>
-                            <button onClick={() => {
-                                dispatchUser({type: "DELETE_TODO" ,action: todo.id})
-                            }}
+                            <button onClick={handleDeleteTodo}
                             >
                                Delete
                            </button>
