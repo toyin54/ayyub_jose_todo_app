@@ -32,12 +32,14 @@ function todoReducer(state , action){
                     dateCompleted : action.dateCompleted,
                     dateCreated : action.dateCreated
                 };
-                return[...state, newTask]
+            return[...state, newTask]
         case "DELETE_TODO":
-                return [...state, state.todo.filter((todo) => todo.id !== action.id)]
+            return [...state, state.todo.filter((todo) => todo.id !== action.id)]
         case "TOGGLE_TODO":
             return [...state , state.todo.map((todo) => 
                 todo.id === action.dateCompleted)]
+        case "FETCH_POSTS":
+            return action.posts;
         default:
             return state;
     }
