@@ -1,10 +1,30 @@
-import React, { useState } from 'react'
+import { useState, useEffect } from "react";
+import { useResource } from "react-request-hook";
 
 export default function Login({ dispatchUser }) {
     const [ username, setUsername ] = useState('')
     const [ password, setPassword ] = useState('')
+    const [loginFailed, setLoginFailed] = useState(false);
+
+
+    const [user, login] = useResource((username, password) => ({
+        url: "/login",
+        method: "post",
+        data: { email: username, password },
+      }));
  
  
+      useEffect(() => {
+        if (user) {
+          if (user?.data?.user) {
+            setLoginFailed(false);
+            dispatchUser({ type: "LOGIN", username: user.data.user.email });
+          } else {
+            setLoginFailed(true);
+          }
+        }
+      }, [user]);
+
     function handleUsername (e) { 
          setUsername(e.target.value) 
      }
@@ -15,9 +35,15 @@ export default function Login({ dispatchUser }) {
  
 
    return (
+    <>
+        {loginFailed && (
+        <span style={{ color: "red" }}>Invalid username or password</span>
+      )
+      }
         <form onSubmit={e => { 
             e.preventDefault();
-            dispatchUser({ type: "LOGIN", username });
+            login(username, password);
+            // dispatchUser({ type: "LOGIN", username });
              }}
              >
             <label htmlFor="login-username">Username:</label>
@@ -41,5 +67,6 @@ export default function Login({ dispatchUser }) {
                  value="Login" 
                  disabled={username.length === 0} />
         </form>
+        </>
     )
 }

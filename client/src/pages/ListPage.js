@@ -6,7 +6,9 @@ export default function TodoPage(){
     const [todo, setTodo] = useState([]);
     const [description, setDescription] = useState('');
 
-    const{state , dispatch: dispatchUser}= useContext(StateContext)
+    const { state, dispatch } = useContext(StateContext);
+    const { user } = state;
+
    
 
     //function handleTd, this combines all the props
@@ -26,8 +28,6 @@ export default function TodoPage(){
         setInputTask('');
         setDescription('');
     };
-
-    //
 
 
     //hnadles the delete button

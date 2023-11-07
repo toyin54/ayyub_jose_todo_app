@@ -14,6 +14,18 @@ import ChangeTheme from './components/ChangeTheme';
 
 
 function App() {
+  const [postResponse, getPosts] = useResource(() => ({
+    url: "/posts",
+    method: "get",
+  }));
+
+  useEffect(getPosts, []);
+
+  useEffect(() => {
+    if (postResponse && postResponse.data) {
+      dispatch({ type: "FETCH_POSTS", posts: postResponse.data.reverse() });
+    }
+  }, [postResponse]);
   
   const [theme , setTheme] = useState({
     primaryColor: "orange",

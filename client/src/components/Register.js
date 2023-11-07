@@ -1,14 +1,19 @@
-import React, { useState } from 'react'
+import React, { useState , useEffect  } from 'react'
 import { useResource } from 'react-request-hook';
 
 export default function Register({ dispatchUser }) {
 
-      // const [user , register] =useResource((username, password)=> ({
-      //       url: "/users",
-      //       method: "post",
-      //       data: {email: username , password},
-      // }))
+      const [user , register] =useResource((username, password)=> ({
+            url: "/users",
+            method: "post",
+            data: {email: username , password},
+      }))
 
+      useEffect(() => {
+            if (user && user.data) {
+              dispatchUser({ type: "REGISTER", username: user.data.user.email });
+            }
+          }, [user, dispatchUser]);
 
 //     const [ formData, setFormData ] = useState({
 //        username: "",
