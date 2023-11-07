@@ -4,6 +4,9 @@ import './App.css';
 import Header from './components/Header';
 import UserBar from './components/UserBar';
 import ListPage from './pages/ListPage';
+import CreateTodo from './pages/CreateTodo';
+import TodoList from './pages/TodoList';
+import Todo from './pages/Todo';
 
 import appReducer from './reducers/reducers';
 import { StateContext , ThemeContext } from './components/contexts';
@@ -14,6 +17,7 @@ import ChangeTheme from './components/ChangeTheme';
 
 
 function App() {
+
   
   const [theme , setTheme] = useState({
     primaryColor: "orange",
@@ -22,10 +26,44 @@ function App() {
 
   const [ state , dispatch] = useReducer(appReducer, {
     user: "",
-    posts: [],
+    todos: [],
   })
 
-  const {user , posts} = state;
+  const {user , todos} = state;
+
+  useEffect(() => {
+    if (user) {
+      document.title = `${user}'s Todos`;
+    } else {
+      document.title = "Todos";
+    }
+  }, [user]);
+
+  const handleAddTodo = (newTodo) => {
+    dispatch({ type: "CREATE_TODO", ...newTodo });
+  };
+  const handleDeleteTodo = (todos) => {
+    dispatch({ type: "DELETE_TODO", todos });
+  };
+  const handleToggleTodo = (id) => {
+    dispatch({ type: "TOGGLE_TODO", id });
+  };
+
+  let content;
+  if (state.user) {
+    content = (
+      <>
+        <CreateTodo handleAddTodo={handleAddTodo} />
+        <TodoList
+          todos={todos}
+          handleAddTodo={handleAddTodo}
+          handleDeleteTodo={handleDeleteTodo}
+          handleToggleTodo={handleToggleTodo}
+        />
+      </>
+    );
+  }
+
 
   return (
     <div>
@@ -34,6 +72,7 @@ function App() {
         <Header text="My Todo App"/>
         <ChangeTheme theme={theme} setTheme={setTheme}/>
           <UserBar />
+          {content}
           {user && <ListPage/> }
         </ThemeContext.Provider>
       </StateContext.Provider>

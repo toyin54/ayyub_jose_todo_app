@@ -1,4 +1,5 @@
 import React, { useContext, useState } from "react";
+import { useResource } from "react-request-hook";
 import { StateContext } from "../components/contexts";
 
 export default function TodoPage(){
@@ -6,8 +7,16 @@ export default function TodoPage(){
     const [todo, setTodo] = useState([]);
     const [description, setDescription] = useState('');
 
-    const{state , dispatch: dispatchUser}= useContext(StateContext)
+    const { state, dispatch } = useContext(StateContext);
+    const { user } = state;
    
+
+    const [post, createPost] = useResource((newTask) => ({
+        url: "/posts",
+        method: "post",
+        data: {newTask},
+      }));
+    
 
     //function handleTd, this combines all the props
     //instead of having a different usestate fucnton for each prop
@@ -23,21 +32,19 @@ export default function TodoPage(){
         };
 
         setTodo([...todo, newTask]);
+        createPost(...todo, newTask);
         setInputTask('');
         setDescription('');
     };
 
     //
 
-    const handleTrueTodo = (id) => {
-        const newtodo = todo.filter((todo) => todo.id !== id);
-        setTodo(newtodo);
-    };
 
     //hnadles the delete button
    const handleDeleteTodo = (id) => {
         const newtodo = todo.filter((todo) => todo.id !== id);
         setTodo(newtodo);
+
     };
 
     

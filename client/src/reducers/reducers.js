@@ -4,17 +4,17 @@ LOGIN
 REGISTER
 LOGOUT
 */
-function userReducer(state , action){
-    switch(action.type){
-        case "LOGIN":
-        case "REGISTER":
-            return action.username;
-        case "LOGOUT":
-            return "";
-        default:
-            return state
+function userReducer(state, action) {
+    switch (action.type) {
+      case "LOGIN":
+      case "REGISTER":
+        return action.username;
+      case "LOGOUT":
+        return "";
+      default:
+        return state;
     }
-}
+  }
 /*
 Reducer functions for 
 CREATE_TODO
