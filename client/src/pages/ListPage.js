@@ -29,10 +29,6 @@ export default function TodoPage(){
 
     //
 
-    const handleTrueTodo = (id) => {
-        const newtodo = todo.filter((todo) => todo.id !== id);
-        setTodo(newtodo);
-    };
 
     //hnadles the delete button
    const handleDeleteTodo = (id) => {
@@ -82,7 +78,9 @@ export default function TodoPage(){
                             <p>Complete: {todo.complete }</p>
                             <p>Created: { todo.dateCreated}</p>
                             <p>Finished: { todo.dateCompleted}</p>
-                            <button onClick={handleDeleteTodo}
+                            <button onClick={() => {
+                                handleDeleteTodo(todo.id)
+                            }}
                             >
                                Delete
                            </button>
