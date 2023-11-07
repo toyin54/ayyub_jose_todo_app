@@ -4,29 +4,33 @@ import { useResource } from "react-request-hook";
 import ThemeItem from "./ThemeItem";
 
 
-const THEMES = [
-  { primaryColor: "deepskyblue", secondaryColor: "coral" },
-  { primaryColor: "orchid", secondaryColor: "mediumseagreen" },
-];
+// const THEMES = [
+//   { primaryColor: "deepskyblue", secondaryColor: "coral" },
+//   { primaryColor: "orchid", secondaryColor: "mediumseagreen" },
+// ];
 export default function ChangeTheme({ theme, setTheme }) {
+
   // const [themes, setThemes] = useState([]);
+  // console.log(themes)
   // useEffect(() => {
   //   fetch("/api/themes")
-  //     .then((result) => result.json())
+  //     .then((res) => res.json())
   //     .then((themes) => setThemes(themes));
   // }, []);
+  // console.log(themes)
 
 
-  // const [themes, getThemes] = useResource(() => ({
-  //   url: "/themes",
-  //   method: "get",
-  // }));
+  const [themes, getThemes] = useResource(() => ({
+    url: "/themes",
+    method: "get",
+  }));
+  console.log(themes)
 
 
-  // const { data, isLoading } = themes;
+  const { data, isLoading } = themes;
 
 
-  // useEffect(getThemes, []);
+  useEffect(getThemes, []);
 
 
   function isActive(t) {
@@ -37,10 +41,10 @@ export default function ChangeTheme({ theme, setTheme }) {
   }
   return (
     <div>
-      {/* {isLoading && " Loading themes..."} */}
+      {isLoading && " Loading themes..."}
       Change theme:
-      {
-        THEMES.map((t, i) => (
+      {data &&
+        data.map((t, i) => (
           <ThemeItem
             key={"theme-" + i}
             theme={t}

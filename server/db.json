@@ -1,44 +1,59 @@
 {
-    "posts": [
-      {
-        "id": 1,
-        "description": "portal",
-        "todo": "Some content",
-        "complete": "paul",
-        "dateCompleted": "null",
-        "dateCreated": null
-      },
-      {
-        "id": 2,
-        "description": "",
-        "todo": "",
-        "complete": "",
-        "dateCompleted": "",
-        "dateCreated": null
-      }
-    ],
-    "users": [
-      {
-        "email": "ajose3.paul@gmail.com",
-        "password": "$2a$10$Rd/k4NNQCTqn4/wlXor2IeoKia2RrvJvmWOd/nCOpBdoyRxsdCKZG",
-        "id": 1
-      },
-      {
-        "email": "user@live.net",
-        "password": "$2a$10$f8DDbcCZMPGZ0j.teVpXaObVZMhGEVSVj8sSjhjT/yiEnak1wOfBC",
-        "id": 2
-      }
-    ],
-    "themes": [
-      {
-        "id": 1,
-        "primaryColor": "yellow",
-        "secondaryColor": "green"
-      },
-      {
-        "primaryColor": "red",
-        "secondaryColor": "orange",
-        "id": 2
-      }
-    ]
-  }
+  "posts": [
+    {
+      "id": 1,
+      "description": "portal",
+      "todo": "Some content",
+      "complete": "paul",
+      "dateCompleted": "null",
+      "dateCreated": null
+    },
+    {
+      "id": 2,
+      "description": "",
+      "todo": "",
+      "complete": "",
+      "dateCompleted": "",
+      "dateCreated": null
+    }
+  ],
+  "users": [
+    {
+      "email": "ajose3.paul@gmail.com",
+      "password": "$2a$10$Rd/k4NNQCTqn4/wlXor2IeoKia2RrvJvmWOd/nCOpBdoyRxsdCKZG",
+      "id": 1
+    },
+    {
+      "email": "user@live.net",
+      "password": "$2a$10$f8DDbcCZMPGZ0j.teVpXaObVZMhGEVSVj8sSjhjT/yiEnak1wOfBC",
+      "id": 2
+    },
+    {
+      "email": "ajose78@gmail.com",
+      "password": "$2a$10$oNWirjoOiZR3vgzU6YyNeOMgUb7ExHa8XwblqeGgBtsDQrzsZnPhC",
+      "id": 3
+    },
+    {
+      "email": "ajoseeee78@gmail.com",
+      "password": "$2a$10$Y8onNcFetsfAG.mbV1bqdOZPEpkLj4fMOcttRO2GxQlfb4bjHQ5Vi",
+      "id": 4
+    }
+  ],
+  "themes": [
+    {
+      "id": 1,
+      "primaryColor": "yellow",
+      "secondaryColor": "green"
+    },
+    {
+      "primaryColor": "red",
+      "secondaryColor": "orange",
+      "id": 2
+    },
+    {
+      "email": "ajose78@gmail.com",
+      "password": "passs",
+      "id": 3
+    }
+  ]
+}

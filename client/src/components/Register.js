@@ -1,73 +1,78 @@
-import React, { useState } from 'react'
-import { useResource } from 'react-request-hook';
+import { useState, useEffect } from "react";
+import { useResource } from "react-request-hook";
 
 export default function Register({ dispatchUser }) {
+  const [user, register] = useResource((username, password) => ({
+    url: "/users",
+    method: "post",
+    data: { email: username, password },
+  }));
 
-      // const [user , register] =useResource((username, password)=> ({
-      //       url: "/users",
-      //       method: "post",
-      //       data: {email: username , password},
-      // }))
+  useEffect(() => {
+    if (user && user.data) {
+      dispatchUser({ type: "REGISTER", username: user.data.user.email });
+    }
+  }, [user, dispatchUser]);
 
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordRepeat, setPasswordRepeat] = useState("");
 
-//     const [ formData, setFormData ] = useState({
-//        username: "",
-//        password: "", 
-//        passwordRepeat: ""
-//    })
+  function handleUsername(evt) {
+    setUsername(evt.target.value);
+  }
+  function handlePassword(evt) {
+    setPassword(evt.target.value);
+  }
+  function handlePasswordRepeat(evt) {
+    setPasswordRepeat(evt.target.value);
+  }
 
-      const [username , setUsername] = useState("")
-      const [password , setUPass] = useState("")
-      const [passRepeat , setPassRepeat] = useState("")
+  return (
+    <form
+      onSubmit={(e) => {
+        e.preventDefault();
+        // setUser(username);
+        register(username, password);
+        dispatchUser({ type: "REGISTER", username });
+      }}
+    >
+      <label htmlFor="register-username">Username:</label>
+      <input
+        type="text"
+        name="register-username"
+        id="register-username"
+        value={username}
+        onChange={handleUsername}
+      />
 
-      function userHandle(e){
-            setUsername(e.target.value)
-      }
-      function passHandle(e){
-            setUPass(e.target.value)
-      }
-      function passRepeatHandle(e){
-            setPassRepeat(e.target.value)
-      }
+      <label htmlFor="register-password">Password:</label>
+      <input
+        type="password"
+        name="register-password"
+        id="register-password"
+        value={password}
+        onChange={handlePassword}
+      />
 
-return (
-        <form onSubmit={e => { e.preventDefault(); 
-            dispatchUser({ type: "REGISTER", username }); }}
-            >
-          <label 
-                htmlFor="register-username">Username:</label>
-          <input 
-  s              type="text" 
-                value={username} 
-                onChange={userHandle}
-                 name="register-username"
-                  id="register-username" />
-          <label 
-                htmlFor="register-password">Password:</label>
-          <input 
-                type="password" 
-                name="register-password" 
-                id="register-password" 
-                value={password} 
-                onChange={passHandle} />
-          <label 
-                htmlFor="register-password-repeat">Repeat password:</label>
-          <input 
-                type="password" 
-                name="register-password-repeat" 
-                id="register-password-repeat" 
-                value={passRepeat} 
-                 onChange={passRepeatHandle} />
-        <input 
-                type="submit" 
-                value="Register" 
-                disabled={
-                    username.length === 0 || 
-                    password.length === 0 || 
-                    password !== passRepeat} 
-        />
-        </form>
-    )
+      <label htmlFor="register-password-repeat">Repeat password:</label>
+      <input
+        type="password"
+        name="register-password-repeat"
+        id="register-password-repeat"
+        value={passwordRepeat}
+        onChange={handlePasswordRepeat}
+      />
+
+      <input
+        type="submit"
+        value="Register"
+        disabled={
+          username.length === 0 ||
+          password.length === 0 ||
+          password !== passwordRepeat
+        }
+      />
+    </form>
+  );
 }
-
-
