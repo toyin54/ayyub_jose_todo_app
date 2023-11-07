@@ -50,6 +50,6 @@ function todoReducer(state , action){
 export default function appReducer(state, action) {
   return {
     user: userReducer(state.user, action),
-    todo: todoReducer(state.todo, action),
+    todo: todoReducer(state.posts, action),
   };
 }

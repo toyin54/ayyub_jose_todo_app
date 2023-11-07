@@ -1,10 +1,13 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useResource } from "react-request-hook";
+import {StateContext} from "./contexts"
 
 export default function Login({ dispatchUser }) {
     const [username, setUsername] = useState("");
     const [loginFailed, setLoginFailed] = useState(false);
     const [password, setPassword] = useState("");
+
+    // const dispatch = useContext(StateContext)
   
     const [user, login] = useResource((username, password) => ({
       url: "/login",
@@ -16,7 +19,10 @@ export default function Login({ dispatchUser }) {
       if (user) {
         if (user?.data?.user) {
           setLoginFailed(false);
-          dispatchUser({ type: "LOGIN", username: user.data.user.email });
+          dispatchUser({ 
+            type: "LOGIN", 
+            username: user.data.user.email 
+          });
         } else {
           setLoginFailed(true);
         }

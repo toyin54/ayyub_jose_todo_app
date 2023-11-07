@@ -17,8 +17,20 @@ import ChangeTheme from './components/ChangeTheme';
 
 
 function App() {
+  const [postResponse, getPosts] = useResource(() => ({
+    url: "/posts",
+    method: "get",
+  }));
 
-  
+  useEffect(getPosts, []);
+
+  useEffect(() => {
+    if (postResponse && postResponse.data) {
+      dispatch({ type: "FETCH_POSTS", posts: postResponse.data.reverse() });
+    }
+  }, [postResponse]);
+
+  console.log(postResponse)
   const [theme , setTheme] = useState({
     primaryColor: "orange",
     secondaryColor: "purple",
@@ -72,7 +84,7 @@ function App() {
         <Header text="My Todo App"/>
         <ChangeTheme theme={theme} setTheme={setTheme}/>
           <UserBar />
-          {content}
+     
           {user && <ListPage/> }
         </ThemeContext.Provider>
       </StateContext.Provider>
