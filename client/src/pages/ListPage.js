@@ -17,6 +17,11 @@ export default function TodoPage(){
         data: {newTask},
       }));
     
+    const [delpost, delPost] = useResource((newTask) => ({
+        url: "/posts",
+        method: "delete",
+        data: {newTask},
+      }));
 
     //function handleTd, this combines all the props
     //instead of having a different usestate fucnton for each prop
@@ -25,14 +30,13 @@ export default function TodoPage(){
             id: Math.random(),
             description,
             todo: inputTask,
-            complete:  <input type="checkbox" value ="false" onClick={() => newTask.dateCompleted = Date(Date.now()).toString()} 
-            />,
+            complete:null,
             dateCompleted: null,
             dateCreated :Date(Date.now()).toString()
         };
 
-        setTodo([...todo, newTask]);
-        createPost(...todo, newTask);
+        setTodo([newTask]);
+        createPost(newTask);
         setInputTask('');
         setDescription('');
     };
@@ -43,7 +47,7 @@ export default function TodoPage(){
     //hnadles the delete button
    const handleDeleteTodo = (id) => {
         const newtodo = todo.filter((todo) => todo.id !== id);
-        setTodo(newtodo);
+        delPost(newtodo);
 
     };
 
