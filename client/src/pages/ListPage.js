@@ -35,7 +35,7 @@ export default function TodoPage(){
             dateCreated :Date(Date.now()).toString()
         };
 
-        setTodo([newTask]);
+        setTodo([...todo,newTask]);
         createPost(newTask);
         setInputTask('');
         setDescription('');
