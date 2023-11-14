@@ -84,7 +84,7 @@ function App() {
         <Header text="My Todo App"/>
         <ChangeTheme theme={theme} setTheme={setTheme}/>
           <UserBar />
-     
+          {/* {content} */}
           {user && <ListPage/> }
         </ThemeContext.Provider>
       </StateContext.Provider>

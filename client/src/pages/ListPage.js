@@ -86,7 +86,7 @@ export default function TodoPage(){
             </div>
 
             <div className="task">
-                <header>Author : {}</header>
+                <header>Author : {state.user}</header>
                 <label>Enter task: </label>
                 <input 
                     type="text" 
