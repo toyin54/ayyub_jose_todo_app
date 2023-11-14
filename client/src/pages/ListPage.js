@@ -6,6 +6,8 @@ export default function TodoPage(){
     const [inputTask, setInputTask] = useState('');
     const [todo, setTodo] = useState([]);
     const [description, setDescription] = useState('');
+    const [isChecked, setChecked] = useState(false);
+    const [selectedDate, setSelectedDate] = useState(null);   
 
     const { state, dispatch } = useContext(StateContext);
     const { user } = state;
@@ -17,7 +19,7 @@ export default function TodoPage(){
         data: {newTask},
       }));
     
-    const [delpost, delPost] = useResource((newTask) => ({
+    const [delpost, deletePost] = useResource((newTask) => ({
         url: "/posts",
         method: "delete",
         data: {newTask},
@@ -30,8 +32,8 @@ export default function TodoPage(){
             id: Math.random(),
             description,
             todo: inputTask,
-            complete:null,
-            dateCompleted: null,
+            complete:isChecked,
+            dateCompleted: selectedDate,
             dateCreated :Date(Date.now()).toString()
         };
 
@@ -39,6 +41,8 @@ export default function TodoPage(){
         createPost(newTask);
         setInputTask('');
         setDescription('');
+        setChecked(false);
+        setSelectedDate(false);
     };
 
     //
@@ -47,7 +51,8 @@ export default function TodoPage(){
     //hnadles the delete button
    const handleDeleteTodo = (id) => {
         const newtodo = todo.filter((todo) => todo.id !== id);
-        delPost(newtodo);
+        deletePost({ id }); // Pass the id as a parameter to the delete request
+        setTodo(newtodo);
 
     };
 
@@ -62,6 +67,18 @@ export default function TodoPage(){
         setDescription(event.target.value);
     };
 
+
+  const handleCheckboxChange = () => {
+    setChecked(!isChecked);
+    // If the checkbox is checked, set the selected date
+    if (!isChecked) {
+      const currentDate = new Date();
+      setSelectedDate(Date(Date.now()).toString());
+    } else {
+      
+      setChecked(true);
+    }
+  };
    return (
         <div className="main">
             <div class="header">
@@ -90,10 +107,15 @@ export default function TodoPage(){
                         <li className="task" key={todo.id}>
                             <strong>{todo.todo}</strong>
                             <p>{todo.description}</p>
-                            <p>Complete: {todo.complete }</p>
+                            <p>Complete: 
+                                <input
+                                type="checkbox"
+                                checked={isChecked}
+                                onChange={handleCheckboxChange}/>
+                            </p>
                             <p>Created: { todo.dateCreated}</p>
-                            <p>Finished: { todo.dateCompleted}</p>
-                            <button onClick={handleDeleteTodo}
+                            <p>Finished: {isChecked && selectedDate && ( selectedDate)}</p>
+                            <button onClick={() => handleDeleteTodo(todo.id)}
                             >
                                Delete
                            </button>
