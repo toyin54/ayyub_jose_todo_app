@@ -22,6 +22,14 @@ function App() {
     method: "get",
   }));
 
+
+  const [delpost, deletePost] = useResource((id) => ({
+    url: `/posts/${id}`,
+    method: 'delete',
+  }));
+
+
+
   useEffect(getPosts, []);
 
   useEffect(() => {

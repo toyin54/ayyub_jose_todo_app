@@ -26,15 +26,15 @@ export default function TodoPage(){
     
     const [delpost, deletePost] = useResource((newTask) => ({
         url: "/posts",
-        method: "delete",
-        data: {newTask},
+        method: 'delete',
+        
       }));
 
     //function handleTd, this combines all the props
     //instead of having a different usestate fucnton for each prop
     const handleAddTodo = () => {
         const newTask = {
-   
+            id: Math.random(),
             description,
             todo: inputTask,
             complete:isChecked,
@@ -55,8 +55,9 @@ export default function TodoPage(){
 
     //hnadles the delete button
    const handleDeleteTodo = (id) => {
+        console.log('Deleting todo with id:', id);
         const newtodo = todo.filter((todo) => todo.id !== id);
-        deletePost({ id }); // Pass the id as a parameter to the delete request
+        deletePost({ id });
         setTodo(newtodo);
 
     };
@@ -120,8 +121,7 @@ export default function TodoPage(){
                             </p>
                             <p>Created: { todo.dateCreated}</p>
                             <p>Finished: {isChecked && selectedDate && ( selectedDate)}</p>
-                            <button onClick={() => handleDeleteTodo(todo.id)}
-                            >
+                            <button onClick={() => handleDeleteTodo(todo.id)}>
                                Delete
                            </button>
                         </li>
