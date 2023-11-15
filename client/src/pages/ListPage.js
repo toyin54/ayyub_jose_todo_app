@@ -28,7 +28,7 @@ export default function TodoPage(){
       }));
     
     const [delpost, deletePost] = useResource(({id}) => ({
-        url: "/posts",
+        url: `/posts/${id}`,
         method: 'delete',
         
       }));
@@ -60,9 +60,11 @@ export default function TodoPage(){
     //hnadles the delete button
    const handleDeleteTodo = (id) => {
         console.log('Deleting todo with id:', id);
-        const newtodo = todo.filter((todo) => todo.id !== id);
-        deletePost({ id });
         
+        const newtodo = todo.filter((todo) => todo.id !== id);
+        if(newtodo){
+        deletePost(todo.id);
+        }
         setTodo(newtodo);
 
     };

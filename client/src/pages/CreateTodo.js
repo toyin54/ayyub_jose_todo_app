@@ -1,70 +1,63 @@
-import { useState , useContext } from "react";
-import { useResource } from "react-request-hook";
+import { useContext, useState } from "react";
 import { StateContext } from "../components/contexts";
+import { useResource } from "react-request-hook";
+import { v4 as uuidv4 } from "uuid";
 
-
-export default function CreateTodo() {
+export default function CreateTodo({ handleAddTodo }) {
   const [title, setTitle] = useState("");
-  const [content, setContent] = useState("");
-  const [description, setDescription] = useState('');
+  const [description, setDescription] = useState("");
+  const {state, dispatch} = useContext(StateContext);
+  const {user} = state;
 
-  const { state, dispatch } = useContext(StateContext);
-  const { user } = state;
+  const [todo , CreateTodo ] = useResource(({id, title, description, author, dateCreated }) => ({
+    url: '/todos',
+    method: 'post',
+    data: {
+          id, 
+          title, 
+          description, 
+          author, 
+          dateCreated 
+    }
+    }))
 
-  const [post, createPost] = useResource(({ title, content, author }) => ({
-    url: "/posts",
-    method: "post",
-    data: { title, content, author },
-  }));
+  function handleCreate() {
+    const newTodo = { 
+      id:uuidv4(),
+      title,
+      description,
+      author: user,
+      dateCreated :Date(Date.now()).toString(),
+      auhor:state.user,
+
+    };
+    CreateTodo(newTodo);
+    dispatch({ type: 'CREATE_TODO', ...newTodo})
+   
+  }
 
   function handleTitle(evt) {
     setTitle(evt.target.value);
   }
-  function handleContent(evt) {
-    setContent(evt.target.value);
-  }
-  function handleCreate() {
-    const newPost = { title, content, author: user };
-    createPost(newPost);
-    dispatch({ type: "CREATE_POST", ...newPost })
-    setTitle('');
-    setContent('');
-    ;
-    //handleAddPost(newPost);
+  function handleDescription(evt) {
+    setDescription(evt.target.value);
   }
 
   return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        handleCreate();
-      }}
-    >
+    <form onSubmit={(e) => e.preventDefault()}>
       <div>
-        Author:
-             <b>{user}</b>
+        Author: <b>{user}</b>
       </div>
       <div>
-            <label 
-                htmlFor="create-title">
-                    Title
-            </label>
-            <input
-                type="text"
-                value={title}
-                onChange={handleTitle}
-                name="create-title"
-                id="create-title"
-            />
+        <label htmlFor="create-title">Title:</label>
+        <input type="text" value={title} onChange={handleTitle} name="create-title" id="create-title" />
       </div>
-      <textarea
-            value={content} 
-            onChange={handleContent} 
-       />
-      <input 
-            type="submit" 
-            value="Create" 
-        />
+      <div>Description:
+      <textarea value={description} onChange={handleDescription} />
+      </div>
+      
+      <input type="submit" value="Create" onClick={handleCreate}/>
+      
     </form>
   );
 }
