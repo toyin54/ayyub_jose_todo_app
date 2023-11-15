@@ -23,8 +23,8 @@ function App() {
   }));
 
 
-  const [delpost, deletePost] = useResource((id) => ({
-    url: `/posts/${id}`,
+  const [delpost, deletePost] = useResource(({id}) => ({
+    url: '/posts/${id}',
     method: 'delete',
   }));
 

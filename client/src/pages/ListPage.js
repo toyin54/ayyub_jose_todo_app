@@ -21,10 +21,13 @@ export default function TodoPage(){
             todo: inputTask,
             complete:isChecked,
             dateCompleted: selectedDate,
-            dateCreated :Date(Date.now()).toString()},
+            dateCreated :Date(Date.now()).toString(),
+            auhor:state.user,
+        },
+            
       }));
     
-    const [delpost, deletePost] = useResource((newTask) => ({
+    const [delpost, deletePost] = useResource(({id}) => ({
         url: "/posts",
         method: 'delete',
         
@@ -39,7 +42,8 @@ export default function TodoPage(){
             todo: inputTask,
             complete:isChecked,
             dateCompleted: selectedDate,
-            dateCreated :Date(Date.now()).toString()
+            dateCreated :Date(Date.now()).toString(),
+            auhor:state.user,
         };
 
         setTodo([...todo,newTask]);
@@ -58,6 +62,7 @@ export default function TodoPage(){
         console.log('Deleting todo with id:', id);
         const newtodo = todo.filter((todo) => todo.id !== id);
         deletePost({ id });
+        
         setTodo(newtodo);
 
     };
