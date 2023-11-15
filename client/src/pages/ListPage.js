@@ -16,7 +16,12 @@ export default function TodoPage(){
     const [post, createPost] = useResource((newTask) => ({
         url: "/posts",
         method: "post",
-        data: {newTask},
+        data: {   
+            description,
+            todo: inputTask,
+            complete:isChecked,
+            dateCompleted: selectedDate,
+            dateCreated :Date(Date.now()).toString()},
       }));
     
     const [delpost, deletePost] = useResource((newTask) => ({
@@ -29,7 +34,7 @@ export default function TodoPage(){
     //instead of having a different usestate fucnton for each prop
     const handleAddTodo = () => {
         const newTask = {
-            id: Math.random(),
+   
             description,
             todo: inputTask,
             complete:isChecked,
