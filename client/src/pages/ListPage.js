@@ -36,6 +36,23 @@ export default function TodoPage(){
         
       }));
 
+    //fetch
+    const [postsResponse, getPosts] = useResource(() => ({
+        url: "/posts",
+        method: "get",
+   
+      }));
+
+      
+    useEffect(getPosts, []);
+
+    useEffect(() => {
+        if (postsResponse && postsResponse.data) {
+        dispatch({ type: "FETCH_POSTS", posts: postsResponse.data.reverse() });
+        }
+    }, [postsResponse]);
+    
+
     //function handleTd, this combines all the props
     //instead of having a different usestate fucnton for each prop
     const handleAddTodo = () => {
@@ -88,7 +105,7 @@ export default function TodoPage(){
 //         setTodo(newtodo);
 
 //     };
-
+//     //hnadles the delete button
     const handleDeleteTodo = (id) => {
         console.log('Deleting todo with id:', id);
         
@@ -109,8 +126,7 @@ export default function TodoPage(){
     //     }
     //   };
 
-    
-    
+
     //hnadles the input change for the task
    const handleInputChange = (event) => {
         setInputTask(event.target.value);
@@ -135,6 +151,7 @@ export default function TodoPage(){
   };
    return (
         <div className="main">
+            
             <div class="header">
                 <h1>My To-Do list</h1>
             </div>

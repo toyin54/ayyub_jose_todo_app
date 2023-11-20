@@ -1,9 +1,11 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const PostSchema = new Schema({
-  title: { type: String, required: true },
-  todo: { type: String, required: false },
-  description: { type: String, required: false },
+  todo: { type: String, required: true },
+  descriptzion: { type: String, required: false },
+  complete: { type: String, required: false },
+  dateCompleted: { type: Date, required: false },
+  dateCompleted: { type: Date, required: false },
   author: { type: Schema.Types.ObjectId, ref: "User" },
 });
 //Export model
