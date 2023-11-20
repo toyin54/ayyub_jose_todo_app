@@ -1,6 +1,8 @@
 import React, { useContext, useState } from "react";
 import { useResource } from "react-request-hook";
 import { StateContext } from "../components/contexts";
+import { v4 as uuidv4 } from "uuid";
+
 
 export default function TodoPage(){
     const [inputTask, setInputTask] = useState('');
@@ -16,7 +18,8 @@ export default function TodoPage(){
     const [post, createPost] = useResource((newTask) => ({
         url: "/posts",
         method: "post",
-        data: {   
+        data: { 
+          
             description,
             todo: inputTask,
             complete:isChecked,
@@ -27,7 +30,7 @@ export default function TodoPage(){
             
       }));
     
-    const [delpost, deletePost] = useResource(({id}) => ({
+    const [delpost, deletePost] = useResource((id) => ({
         url: `/posts/${id}`,
         method: 'delete',
         
@@ -37,7 +40,7 @@ export default function TodoPage(){
     //instead of having a different usestate fucnton for each prop
     const handleAddTodo = () => {
         const newTask = {
-            id: Math.random(),
+            id: uuidv4(),
             description,
             todo: inputTask,
             complete:isChecked,
@@ -52,6 +55,7 @@ export default function TodoPage(){
         setDescription('');
         setChecked(false);
         setSelectedDate(false);
+        console.log(todo.id)
     };
 
     //
@@ -112,13 +116,14 @@ export default function TodoPage(){
                 value={description}
                 onChange={handleInputDescChange}/>
                 <button onClick={handleAddTodo}
-                disabled = {inputTask.length === 0}>ADD</button>
+                disabled = {inputTask.length === 0}>ADD </button>
             </div>
            <div class="list">
                <ul>
                     { todo.map((todo) => (
                         <li className="task" key={todo.id}>
                             <strong>{todo.todo}</strong>
+                            
                             <p>{todo.description}</p>
                             <p>Complete: 
                                 <input

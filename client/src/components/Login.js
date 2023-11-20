@@ -18,13 +18,13 @@ export default function Login({ dispatchUser }) {
     useEffect(() => {
       if (user) {
         if (user?.data?.user) {
-          setLoginFailed(false);
+          setLoginFailed(true);
           dispatchUser({ 
             type: "LOGIN", 
             username: user.data.user.email 
           });
         } else {
-          setLoginFailed(true);
+          setLoginFailed(false);
         }
       }
     }, [user]);

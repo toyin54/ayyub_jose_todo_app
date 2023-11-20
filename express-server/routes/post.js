@@ -65,4 +65,20 @@ router.get("/:id", async function (req, res, next) {
   return res.status(200).json(post);
 });
 
+
+router.delete("/:id", async function (req, res) {
+//   //console.log("In DELETE /post handler");
+  Post.findByIdAndDelete(req.params.id)
+    .where("author")
+    .equals(req.payload.id)
+    .then((post) => {
+      if (post) {
+        return res.status(200).json({
+          id: post._id,
+          title: post.title,
+          content: post.content,});
+        }}).catch((error) => { return res.status(500).json({ error: error.message });
+    });
+});
+
 module.exports = router;
