@@ -2,17 +2,34 @@ import { useState, useEffect } from "react";
 import { useResource } from "react-request-hook";
 
 export default function Register({ dispatchUser }) {
-  const [user, register] = useResource((username, password) => ({
-    url: "/users",
-    method: "post",
-    data: { email: username, password },
-  }));
+//   const [user, register] = useResource((username, password) => ({
+//     url: "/users",
+//     method: "post",
+//     data: { email: username, password },
+//   }));
 
+  const [status, setStatus] = useState("");
+  const [user, register] = useResource((username, password) => ({
+    url: "auth/register",
+    method: "post",
+    data: { username, password, passwordConfirmation: password },
+  }));
   useEffect(() => {
     if (user && user.data) {
       dispatchUser({ type: "REGISTER", username: user.data.user.email });
     }
   }, [user, dispatchUser]);
+
+  useEffect(() => {
+    if (user && user.isLoading === false && (user.data || user.error)) {
+      if (user.error) {
+        setStatus("Registration failed, please try again later.");
+      } else {
+        setStatus("Registrtion successfaul. You may now login.");
+      }
+    }
+  }, [user]);
+
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");

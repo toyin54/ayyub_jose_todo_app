@@ -9,8 +9,14 @@ export default function Login({ dispatchUser }) {
 
     // const dispatch = useContext(StateContext)
   
+    // const [user, login] = useResource((username, password) => ({
+    //   url: "/login",
+    //   method: "post",
+    //   data: { email: username, password },
+    // }));
+
     const [user, login] = useResource((username, password) => ({
-      url: "/login",
+      url: "auth/login",
       method: "post",
       data: { email: username, password },
     }));
