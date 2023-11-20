@@ -25,7 +25,7 @@ function todoReducer(state , action){
     switch (action.type){
         case "CREATE_TODO":
                 const newTask = {
-                    id: Math.random(),
+                    id: action.id,
                     description : action.description,
                     todo: action.todo,
                     complete: action.complete,
@@ -34,7 +34,9 @@ function todoReducer(state , action){
                 };
             return[...state, newTask]
         case "DELETE_TODO":
-            return [...state, state.todo.filter((todo) => todo.id !== action.id)]
+          const updateTodo= state.filter(todos => todos.id !== action.id);
+          return updateTodo;
+            // return [...state, state.todo.filter((todo) => todo.id !== action.id)]
         case "TOGGLE_TODO":
             return [...state , state.todo.map((todo) => 
                 todo.id === action.dateCompleted)]

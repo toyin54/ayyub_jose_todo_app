@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState , useEffect } from "react";
 import { useResource } from "react-request-hook";
 import { StateContext } from "../components/contexts";
 import { v4 as uuidv4 } from "uuid";
@@ -59,20 +59,57 @@ export default function TodoPage(){
     };
 
     //
+        
+    useEffect(() => {
+        if (post.isLoading === false && post.data) {
+          dispatch({
+            type: "CREATE_POST",
+            description: post.data.description,
+            todo: post.data.todo,
+            id: post.data.id,
+            author: user.username,
+          });
+        }
+      }, [post]);
+
+      console.log(post)
+      console.log(post)
 
 
-    //hnadles the delete button
-   const handleDeleteTodo = (id) => {
+
+//     //hnadles the delete button
+//    const handleDeleteTodo = (id) => {
+//         console.log('Deleting todo with id:', id);
+        
+//         const newtodo = todo.filter((todo) => todo.id !== id);
+//         if(newtodo){
+//         deletePost(todo.id);
+//         }
+//         setTodo(newtodo);
+
+//     };
+
+    const handleDeleteTodo = (id) => {
         console.log('Deleting todo with id:', id);
         
         const newtodo = todo.filter((todo) => todo.id !== id);
         if(newtodo){
-        deletePost(todo.id);
+        deletePost(post.data.id);
+        // dispatch({ type: "DELETE_TODO", id: newtodo.id });
         }
         setTodo(newtodo);
 
     };
 
+    // const handleDeleteTodo = (id) => {
+    //     const todoDelete = todo.filter((item) => item.id === id);
+    //     if (todoDelete) {
+    //         deletePost(todoDelete.id);
+    //       dispatch({ type: "DELETE_TODO", id: todoDelete.id });
+    //     }
+    //   };
+
+    
     
     //hnadles the input change for the task
    const handleInputChange = (event) => {
@@ -121,6 +158,7 @@ export default function TodoPage(){
            <div class="list">
                <ul>
                     { todo.map((todo) => (
+                        
                         <li className="task" key={todo.id}>
                             <strong>{todo.todo}</strong>
                             
