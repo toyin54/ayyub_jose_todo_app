@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from "react";
-import { StateContext } from "../components/contexts";
+import { StateContext } from "../contexts";
 import { useResource } from "react-request-hook";
-// import PostList from "../post/PostList";
+import PostList from "../post/PostList";
 
 export default function HomePage() {
   const { state, dispatch } = useContext(StateContext);
@@ -19,9 +19,8 @@ export default function HomePage() {
     }
   }, [posts]);
   return (
-    <div>Hello</div>
-    // <>
-    //   {posts?.isLoading && "Posts loading..."} <PostList />
-    // </>
+    <>
+      {posts?.isLoading && "Posts loading..."} <PostList />
+    </>
   );
 }

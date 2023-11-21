@@ -14,5 +14,5 @@ require("./setupMongo")();
 
 app.use("/auth", require("./routes/auth"));
 app.use("/post", require("./routes/post"));
-
+app.use('/users', require("./routes/users"))
 module.exports = app;
