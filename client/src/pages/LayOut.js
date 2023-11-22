@@ -15,7 +15,7 @@ export default function Layout() {
         <UserBar />
       </React.Suspense>{" "}
       <br />
-      {user && <Link to="/post">Create Todo Lisr</Link>}
+      {user && <Link to="/post">Create Todo List</Link>}
       <Outlet />
     </>
   );

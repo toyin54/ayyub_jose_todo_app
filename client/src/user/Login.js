@@ -18,7 +18,7 @@ export default function Login({ dispatchUser }) {
     const [user, login] = useResource((username, password) => ({
       url: "auth/login",
       method: "post",
-      data: { email: username, password },
+      data: { username, password },
     }));
     
     useEffect(() => {

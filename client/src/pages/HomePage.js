@@ -2,7 +2,8 @@ import React, { useEffect, useContext } from "react";
 import { StateContext } from "../contexts";
 import { useResource } from "react-request-hook";
 import PostList from "../post/PostList";
-
+import { Link } from "react-router-dom"
+import './homepage.css'
 export default function HomePage() {
   const { state, dispatch } = useContext(StateContext);
   const [posts, getPosts] = useResource(() => ({
@@ -19,8 +20,14 @@ export default function HomePage() {
     }
   }, [posts]);
   return (
-    <>
-      {posts?.isLoading && "Posts loading..."} <PostList />
-    </>
+    <div className="about-page-container">
+    
+    <div className="about-page-content">
+        <h1>Welcome to Ayyub Jose Todo Applicaion</h1>
+    </div>
+    <div className="about-page-cta">
+        <Link className="link-button" to="/posts">Create Todo List</Link>
+    </div>
+</div>
   );
 }

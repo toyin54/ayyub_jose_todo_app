@@ -8,7 +8,7 @@ export default function TodoPage(){
     const [inputTask, setInputTask] = useState('');
     const [todo, setTodo] = useState([]);
     const [description, setDescription] = useState('');
-    const [isChecked, setChecked] = useState(false);
+    const [isChecked, setChecked] = useState();
     const [selectedDate, setSelectedDate] = useState(null);   
 
     const { state, dispatch } = useContext(StateContext);
@@ -20,12 +20,11 @@ export default function TodoPage(){
         method: "post",
         headers: { Authorization: `${state.user.access_token}` },
         data: { 
-
             description,
             todo: inputTask,
-            complete:isChecked,
-            dateCompleted: selectedDate,
+            complete:false,
             dateCreated :Date(Date.now()).toString(),
+            dateCompleted: selectedDate,
             auhor:state.user,
         },      
       }));
@@ -38,7 +37,7 @@ export default function TodoPage(){
       }));
 
       // toggle post
-      const [togglePost, setTogglePost] = useResource((id,dateCompleted) => ({
+      const [togglePost, setTogglePost] = useResource((id) => ({
         url: `/post/${id}`,
         method: 'patch',
         headers: { Authorization: `${state.user.access_token}` },
@@ -56,16 +55,15 @@ export default function TodoPage(){
             id: uuidv4(),
             description,
             todo: inputTask,
-            complete:isChecked,
-            dateCompleted: selectedDate,
             dateCreated :Date(Date.now()).toString(),
+            complete:false,
+            dateCompleted: selectedDate,
             auhor:state.user,
         };
         setTodo([...todo,newTask]);
         createPost(newTask);
         setInputTask('');
         setDescription('');
-        setChecked(false);
         setSelectedDate(false);
         console.log(todo.id)
     };
@@ -102,29 +100,20 @@ export default function TodoPage(){
     const handleToggleTodo = (id) => {
         console.log('Marking as completed todo with id:', id); 
         const nowDate = Date(Date.now()).toString();
-        setTogglePost(post.data.id ,nowDate )
-        // setTodo((prevTodo) => {todo
-        //     return prevTodo.map((task) => {
-        //       if (todo.id === id) {
-        //         // If the task ID matches, update the dateCompleted field
-        //         return {
-        //           ...todo,
-        //           dateCompleted:nowDate,
-        //         };
-        //       }
-        //     })
-        // })
-              
+        //setTogglePost(post.data.id ,nowDate )
+        setTodo((prevTodo) => {
+            return prevTodo.map((todo) => {
+              if (todo.id === id) {
+                // If the task ID matches, update the dateCompleted field
+                return {
+                  ...todo,
+                  complete:true,
+                  dateCompleted:Date(Date.now()).toString() };  
+              }
+              return todo;
+            })
+        })           
     };
-
-    // const handleDeleteTodo = (id) => {
-    //     const todoDelete = todo.filter((item) => item.id === id);
-    //     if (todoDelete) {
-    //         deletePost(todoDelete.id);
-    //       dispatch({ type: "DELETE_TODO", id: todoDelete.id });
-    //     }
-    //   };
-
 
     //hnadles the input change for the task
    const handleInputChange = (event) => {
@@ -145,11 +134,12 @@ export default function TodoPage(){
       setSelectedDate(Date(Date.now()).toString());
     } else {
       
-      setChecked(true);
+    //   setChecked(true);
     }
   };
    return (
-        <div className="main">
+    <>
+     { user &&  <div className="main">
             
             <div class="header">
                 <h1>My To-Do list</h1>
@@ -186,7 +176,7 @@ export default function TodoPage(){
                                 onChange={handleCheckboxChange}/>
                             </p>
                             <p>Created: { todo.dateCreated}</p>
-                            <p>Finished: {isChecked && selectedDate && ( selectedDate)}</p>
+                            <p>Finished: {todo.dateCompleted}\</p>
                             <button onClick={() => handleDeleteTodo(todo.id)}>
                                Delete
                            </button>
@@ -197,6 +187,8 @@ export default function TodoPage(){
                     ))}
                 </ul>
            </div>
-        </div>
+        </div>}
+
+        </>
     )
 }
