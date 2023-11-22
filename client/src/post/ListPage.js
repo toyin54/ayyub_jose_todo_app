@@ -48,6 +48,14 @@ export default function TodoPage(){
         data:{dateCompleted: selectedDate,}
         
       }));
+
+      //fetch Posts
+      const [postResponse, getPosts] = useResource(() => ({
+        url: "/post",
+        method: "get",
+        headers: { Authorization: `${state?.user?.access_token}` },
+      }));
+      
     //function handleTd, this combines all the props
     //instead of having a different usestate fucnton for each prop
     const handleAddTodo = () => {
