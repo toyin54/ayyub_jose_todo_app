@@ -5,7 +5,7 @@ const PostSchema = new Schema({
   description: { type: String, required: false },
   author: { type: Schema.Types.ObjectId, ref: "User" },
   complete: { type: Boolean, required: false },
-  dateCreated: { type: Date, default: Date.now },
+  dateCreated: { type: String, default: Date(Date.now()).toString() },
   dateCompleted: { type: Date, required: false },
 
 });
