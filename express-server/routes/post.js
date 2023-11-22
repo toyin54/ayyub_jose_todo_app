@@ -25,7 +25,7 @@ router.use(function (req, res, next) {
 router.post("/", async function (req, res) {
   //console.log("In POST /post handler", JSON.stringify(req));
   const post = new Post({
-    title: req.body.title,
+    todo: req.body.todo,
     author: req.payload.id,
     description: req.body.description,
     complete: req.body.complete,
@@ -37,9 +37,8 @@ router.post("/", async function (req, res) {
     .then((savedPost) => {
       return res.status(201).json({
         id: savedPost._id,
-        title: savedPost.title,
+        todo: savedPost.todo,
         description: savedPost.description,
-        author: savedPost.author,
         complete: savedPost.complete,
         dateCreated: savedPost.dateCreated,
         dateCompleted: savedPost.dateCompleted,

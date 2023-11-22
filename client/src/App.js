@@ -4,8 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import {Container, Row, Col} from 'react-bootstrap'
 
-import TodoList from './post/TodoList';
-import CreatePost from './post/CreatePost';
+
 import ListPage from './post/ListPage';
 
 

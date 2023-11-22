@@ -32,7 +32,9 @@ export default function TodoPage(){
     const [delpost, deletePost] = useResource((id) => ({
         url: `/post/${id}`,
         method: 'delete',
-        headers: { Authorization: `${state.user.access_token}` },
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+          },
         
       }));
 
@@ -40,14 +42,12 @@ export default function TodoPage(){
       const [togglePost, setTogglePost] = useResource((id) => ({
         url: `/post/${id}`,
         method: 'patch',
-        headers: { Authorization: `${state.user.access_token}` },
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem("access_token")}`,
+          },
         data:{dateCompleted: selectedDate,}
         
       }));
-
-    
-
-
     //function handleTd, this combines all the props
     //instead of having a different usestate fucnton for each prop
     const handleAddTodo = () => {
@@ -59,16 +59,17 @@ export default function TodoPage(){
             complete:false,
             dateCompleted: selectedDate,
             auhor:state.user,
-        };
+        }; 
         setTodo([...todo,newTask]);
         createPost(newTask);
         setInputTask('');
         setDescription('');
         setSelectedDate(false);
-        console.log(todo.id)
+        console.log(todo[0].id)
+        console.log(post)
     };
 
-    //Create Pst useEffect
+    // Create Pst useEffect
     useEffect(() => {
         if (post.isLoading === false && post.data) {
           dispatch({
@@ -81,8 +82,8 @@ export default function TodoPage(){
         }
       }, [post]);
 
-      console.log(post)
-      console.log(post)
+      console.log(post.data)
+
 
 //     //hnadles the delete button
     const handleDeleteTodo = (id) => {

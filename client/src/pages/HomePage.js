@@ -1,7 +1,7 @@
 import React, { useEffect, useContext } from "react";
 import { StateContext } from "../contexts";
 import { useResource } from "react-request-hook";
-import PostList from "../post/PostList";
+
 import { Link } from "react-router-dom"
 import './homepage.css'
 export default function HomePage() {
