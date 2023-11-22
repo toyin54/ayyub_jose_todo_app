@@ -3,7 +3,7 @@ import { Outlet, Link } from "react-router-dom";
 import UserBar from "../user/UserBar";
 import Header from "../Header";
 import { StateContext } from "../contexts"
-
+import { Navbar, Nav, Container } from "react-bootstrap";
 export default function Layout() {
   const { state } = useContext(StateContext);
   const { user } = state;

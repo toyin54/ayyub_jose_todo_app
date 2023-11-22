@@ -26,7 +26,7 @@ export default function HomePage() {
         <h1>Welcome to Ayyub Jose Todo Applicaion</h1>
     </div>
     <div className="about-page-cta">
-        <Link className="link-button" to="/posts">Create Todo List</Link>
+        {/* //<Link className="link-button" to="/posts">Create Todo List</Link> */}
     </div>
 </div>
   );

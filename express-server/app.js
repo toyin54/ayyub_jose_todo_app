@@ -16,8 +16,8 @@ app.use("/auth", require("./routes/auth"));
 app.use("/post", require("./routes/post"));
 app.use('/users', require("./routes/users"))
 
-app.use(express.static(path.join('../client/', 'build')));
+app.use(express.static(path.join(__dirname, '/client')));
 app.get('/*', (req, res) => {
-res.sendFile(path.join('../client/', 'build', 'index.html'));
+res.sendFile(path.join(__dirname, '/client/build', 'index.html'));
 });
 module.exports = app;
