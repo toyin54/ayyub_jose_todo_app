@@ -15,4 +15,9 @@ require("./setupMongo")();
 app.use("/auth", require("./routes/auth"));
 app.use("/post", require("./routes/post"));
 app.use('/users', require("./routes/users"))
+
+app.use(express.static(path.join('../client/', 'build')));
+app.get('/*', (req, res) => {
+res.sendFile(path.join('../client/', 'build', 'index.html'));
+});
 module.exports = app;
